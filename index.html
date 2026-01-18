@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>山熊科學數位聯絡簿</title> <link rel="apple-touch-icon" href="icon.png">
+    <title>山熊科學數位聯絡簿</title>
+    
+    <link rel="apple-touch-icon" href="icon.png">
     <link rel="icon" type="image/png" href="icon.png">
 
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f5f5f7; /* 蘋果風格的淺灰色背景 */
+            background-color: #f5f5f7;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,25 +19,56 @@
             height: 100vh;
             margin: 0;
             text-align: center;
+            padding: 20px; /* 增加一點邊距，避免手機螢幕太窄時字貼邊 */
         }
         .logo {
             width: 150px;
             height: 150px;
-            border-radius: 28px; /* 模擬 App 圖示圓角 */
+            border-radius: 28px;
             margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        h1 { font-size: 22px; color: #333; margin-bottom: 10px; }
-        p { color: #666; line-height: 1.6; margin-bottom: 30px; }
+        h1 { 
+            font-size: 24px; /* 稍微再加大標題 */
+            color: #333; 
+            margin-bottom: 5px; /* 下方留少一點空間，讓「跳轉中」靠近一點 */
+        }
+        
+        /* 新增：狀態文字的樣式 */
+        .status-text {
+            font-size: 20px; /* 妳要的大字 */
+            color: #007AFF; /* 蘋果系統藍，或是妳喜歡的顏色 */
+            font-weight: 600;
+            margin-bottom: 30px;
+            /* 讓文字忽明忽暗，更有「運作中」的感覺 */
+            animation: pulse 2s infinite;
+        }
+
+        /* 修改：說明文字的樣式 */
+        .instruction { 
+            font-size: 19px; /* 明顯加大 */
+            color: #444; /* 顏色加深一點點，比較好讀 */
+            line-height: 1.6; 
+            margin-bottom: 40px; 
+            font-weight: 500; /* 字體稍微加粗 */
+        }
         
         .btn {
-            background-color: #007AFF; /* 蘋果藍 */
+            background-color: #007AFF;
             color: white;
-            padding: 12px 24px;
-            border-radius: 20px;
+            padding: 14px 30px; /* 按鈕也稍微變大一點，比較好按 */
+            border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 定義呼吸燈動畫 */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
     </style>
 </head>
@@ -44,16 +77,33 @@
     <img src="icon.png" alt="山熊科學" class="logo">
     
     <h1>歡迎使用山熊科學數位聯絡簿</h1>
-    <p>請將此頁「分享」➜「加入主畫面」<br>以便日後使用</p>
+    
+    <div class="status-text">即將自動跳轉⋯⋯</div>
+    
+    <p class="instruction">
+        請將此頁「分享」➜「加入主畫面」<br>
+        以便日後使用
+    </p>
 
     <a href="https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec" class="btn">進入系統</a>
 
     <script>
         // 【進階功能】如果是從主畫面點開的 (Standalone模式)，自動跳轉！
-        // 這樣家長平常點 App 圖示時，連按鈕都不用按，直接進去。
         if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
-            // 把下面的網址也換成妳的 GAS 網址
+            
+            // 這裡可以做一個貼心的設計：
+            // 如果已經在 App 模式，就隱藏「請分享...」這段文字，讓畫面更乾淨
+            document.querySelector('.instruction').style.display = 'none';
+            document.querySelector('.btn').innerText = '系統載入中...';
+            
             window.location.replace("https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec");
+        } else {
+            // 如果是在 Safari 瀏覽器打開，其實不會跳轉
+            // 為了不讓家長困惑，我們可以把「即將自動跳轉」這幾個字改成「請依照下方指示操作」
+            // (當然，如果您希望永遠顯示「即將自動跳轉」也可以把下面這行刪掉)
+            document.querySelector('.status-text').innerText = '請依照下方指示操作';
+            document.querySelector('.status-text').style.color = '#FF9500'; /* 改成橘色提醒 */
+            document.querySelector('.status-text').style.animation = 'none'; /* 停止閃爍 */
         }
     </script>
 
