@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山熊科學數位聯絡簿</title> <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f5f7; /* 蘋果風格的淺灰色背景 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 28px; /* 模擬 App 圖示圓角 */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 { font-size: 22px; color: #333; margin-bottom: 10px; }
+        p { color: #666; line-height: 1.6; margin-bottom: 30px; }
+        
+        .btn {
+            background-color: #007AFF; /* 蘋果藍 */
+            color: white;
+            padding: 12px 24px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="icon.png" alt="山熊科學" class="logo">
+    
+    <h1>歡迎使用山熊科學數位聯絡簿</h1>
+    <p>請點擊下方按鈕<br>或將此頁「加入主畫面」以便日後使用</p>
+
+    <a href="https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec" class="btn">進入系統</a>
+
+    <script>
+        // 【進階功能】如果是從主畫面點開的 (Standalone模式)，自動跳轉！
+        // 這樣家長平常點 App 圖示時，連按鈕都不用按，直接進去。
+        if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+            // 把下面的網址也換成妳的 GAS 網址
+            window.location.replace("https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec");
+        }
+    </script>
+
+</body>
+</html>
