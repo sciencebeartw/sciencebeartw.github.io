@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山熊科學數位聯絡簿</title>
     
-    <link rel="apple-touch-icon" href="https://妳的帳號.github.io/repo名/icon.png">
-    <link rel="icon" type="image/png" href="https://妳的帳號.github.io/repo名/icon.png">
+    <link rel="apple-touch-icon" href="https://neatnelson.github.io/sciencebear/icon.png">
+    <link rel="icon" type="image/png" href="https://neatnelson.github.io/sciencebear/icon.png">
 
     <style>
         body {
@@ -28,7 +28,6 @@
             border-radius: 28px;
             margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            /* 確保圖片不會被意外隱藏 */
             display: block; 
         }
 
@@ -84,7 +83,7 @@
 </head>
 <body>
 
-    <img src="https://github.com/neatnelson/sciencebear/blob/cabf5c71ede4de41ff5e64114c87cc44d4c1f0f9/icon.png" alt="山熊科學" class="logo">
+    <img src="https://neatnelson.github.io/sciencebear/icon.png" alt="山熊科學" class="logo">
     
     <h1 id="welcome-title">歡迎使用山熊科學數位聯絡簿</h1>
     <div id="status-text">載入中...</div>
@@ -114,8 +113,7 @@
             statusText.innerText = '即將自動跳轉⋯⋯';
             statusText.className = 'redirecting-style';
 
-            // 【新功能】設定延遲 800 毫秒 (0.8秒) 後再跳轉
-            // 讓使用者有時間看到 Logo 和文字，體驗比較好，也不會破圖
+            // 延遲 0.8 秒後跳轉
             setTimeout(function() {
                 window.location.replace(targetUrl);
             }, 800);
