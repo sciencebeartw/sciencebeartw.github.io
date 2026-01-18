@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山熊科學數位聯絡簿</title>
     
-    <link rel="apple-touch-icon" href="https://neatnelson.github.io/sciencebear/icon.png">
-    <link rel="icon" type="image/png" href="https://neatnelson.github.io/sciencebear/icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
 
     <style>
         body {
@@ -32,7 +32,6 @@
         }
 
         #welcome-title { font-size: 24px; color: #333; margin-bottom: 10px; }
-        
         #status-text { margin-bottom: 20px; line-height: 1.4; }
 
         #instruction-block {
@@ -54,7 +53,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* 情況A：跳轉中的超大字樣式 */
         .redirecting-style {
             font-size: 32px;
             color: #007AFF;
@@ -63,7 +61,6 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* 情況B：引導操作的醒目樣式 */
         .alert-style {
             font-size: 26px;
             color: #FF3B30; 
@@ -83,7 +80,7 @@
 </head>
 <body>
 
-    <img src="https://neatnelson.github.io/sciencebear/icon.png" alt="山熊科學" class="logo">
+    <img src="icon.png" alt="山熊科學" class="logo">
     
     <h1 id="welcome-title">歡迎使用山熊科學數位聯絡簿</h1>
     <div id="status-text">載入中...</div>
@@ -105,21 +102,16 @@
         const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
         if (isStandalone) {
-            // 【App 模式】
             title.style.display = 'none';
             instruction.style.display = 'none';
             btn.style.display = 'none';
-
             statusText.innerText = '即將自動跳轉⋯⋯';
             statusText.className = 'redirecting-style';
 
-            // 延遲 0.8 秒後跳轉
             setTimeout(function() {
                 window.location.replace(targetUrl);
             }, 800);
-
         } else {
-            // 【Safari 瀏覽器模式】
             statusText.innerText = '請依照下方指示操作';
             statusText.className = 'alert-style';
         }
