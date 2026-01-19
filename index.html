@@ -1,114 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>山熊科學數位聯絡簿</title>
-    
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="icon" type="image/png" href="icon.png">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f5f5f7; /* 蘋果風格的淺灰底色 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden; /* 防止滾動 */
+/* --- 修改 1：給「加入主畫面」教學頁用的 Logo --- */
+        .logo {
+            width: 150px;
+            height: auto;          /* 高度自動，防止變形 */
+            
+            /* 這一行是關鍵！確保背景是透明的 */
+            background-color: transparent; 
+            
+            /* 把原本的 box-shadow 陰影刪除或是註解掉 */
+            /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */ 
+            
+            margin-bottom: 20px;
+            display: block;
         }
-        
-        /* 啟動畫面的 Logo */
+
+        /* --- 修改 2：給「跳轉畫面」用的會呼吸 Logo --- */
         .splash-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            width: 160px;           /* 寬度可以自己微調 */
+            height: auto;           /* 高度自動，防止變形 */
+            max-height: 160px;
+            
+            /* 確保背景透明 */
+            background-color: transparent;
+            
+            /* 把陰影拿掉！ */
+            box-shadow: none;       
+            
+            border-radius: 0;       /* 不需要圓角了 */
+            object-fit: contain;    /* 保持比例 */
             animation: breathe 2s infinite ease-in-out;
         }
-
-        /* 只有在「未安裝」時才顯示的教學區塊 */
-        #install-guide {
-            display: none; /* 預設隱藏 */
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 320px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        h1 { font-size: 20px; color: #1d1d1f; margin: 0 0 10px 0; font-weight: 700; }
-        p { font-size: 15px; color: #86868b; margin: 0 0 20px 0; line-height: 1.5; }
-
-        /* iOS 分享按鈕的圖示模擬 */
-        .share-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007AFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/%3E%3Cpolyline points='16 6 12 2 8 6'/%3E%3Cline x1='12' y1='2' x2='12' y2='15'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .btn {
-            background: #0071e3;
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 99px;
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-
-        @keyframes breathe {
-            0% { transform: scale(0.98); opacity: 0.9; }
-            50% { transform: scale(1.02); opacity: 1; }
-            100% { transform: scale(0.98); opacity: 0.9; }
-        }
-    </style>
-</head>
-<body>
-
-    <img src="icon.png" alt="山熊科學" class="splash-logo">
-
-    <div id="install-guide">
-        <h1>加入主畫面</h1>
-        <p>請點擊下方的 <span class="share-icon"></span> 分享按鈕<br>並選擇「加入主畫面」<br>即可安裝數位聯絡簿</p>
-        <a href="#" id="direct-link" class="btn">直接進入網頁版</a>
-    </div>
-
-    <script>
-        // ★★★ 請把這裡換成你 Google Apps Script 的網址 ★★★
-        const TARGET_URL = "https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec";
-        
-        document.getElementById('direct-link').href = TARGET_URL;
-
-        // 偵測是否已經是在「APP 模式」 (Standalone)
-        const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-
-        if (isStandalone) {
-            // 情境 A：家長已經從桌布點開了
-            // 動作：完全不等待，0秒直接跳轉
-            window.location.replace(TARGET_URL);
-        } else {
-            // 情境 B：家長第一次點開連結，是在 Safari 瀏覽器裡
-            // 動作：顯示教學，告訴他要加入主畫面
-            document.getElementById('install-guide').style.display = 'flex';
-        }
-    </script>
-
-</body>
-</html>
