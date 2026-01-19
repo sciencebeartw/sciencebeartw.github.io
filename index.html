@@ -14,66 +14,64 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f5f5f7; /* 蘋果風格淺灰底色 */
+            background-color: #f5f5f7; /* 蘋果風格的淺灰底色 */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden; 
+            overflow: hidden; /* 防止滾動 */
         }
         
-        /* --- 這裡控制你的 Logo 樣式 --- */
+        /* --- 修改 1：給「加入主畫面」教學頁用的 Logo --- */
+        .logo {
+            width: 150px;
+            height: auto;          /* 高度自動，防止變形 */
+            background-color: transparent; /* 確保背景透明 */
+            box-shadow: none;      /* ★關鍵：拿掉陰影，消除貼紙感 */
+            margin-bottom: 20px;
+            display: block; 
+        }
+
+        /* --- 修改 2：給「跳轉畫面」用的會呼吸 Logo --- */
         .splash-logo {
-            width: 180px;           /* Logo 寬度，可依需求微調 */
+            width: 160px;           /* 寬度可依需求微調 */
             height: auto;           /* 高度自動，防止變形 */
-            max-height: 200px;      /* 限制最大高度 */
+            max-height: 160px;
             
-            /* 關鍵修正：去背設定 */
-            background-color: transparent; 
-            box-shadow: none;       /* ★拿掉陰影，就不會有白底方塊感 */
-            border-radius: 0;       /* 不需要圓角 */
+            background-color: transparent; /* 確保背景透明 */
+            box-shadow: none;       /* ★關鍵：拿掉陰影，消除貼紙感 */
+            border-radius: 0;       /* 不需要圓角框 */
             
-            object-fit: contain;    /* 保持圖片原始比例 */
-            
-            /* 呼吸動畫 */
+            object-fit: contain;    /* 保持圖片比例 */
             animation: breathe 2s infinite ease-in-out;
         }
 
-        /* --- 下面是教學頁面的樣式 --- */
+        /* 只有在「未安裝」時才顯示的教學區塊 */
         #install-guide {
             display: none; /* 預設隱藏 */
             flex-direction: column;
             align-items: center;
             text-align: center;
             margin-top: 30px;
-            padding: 25px;
+            padding: 20px;
             background: white;
             border-radius: 20px;
-            width: 85%;
+            width: 80%;
             max-width: 320px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* 卡片本身的陰影保留 */
-        }
-        
-        /* 教學頁裡面的小 Logo */
-        .guide-logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 15px;
-            object-fit: contain;
-            background-color: transparent;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* 教學卡片保留陰影 */
         }
 
-        h1 { font-size: 22px; color: #1d1d1f; margin: 0 0 10px 0; font-weight: 700; }
-        p { font-size: 16px; color: #86868b; margin: 0 0 20px 0; line-height: 1.6; }
+        h1 { font-size: 20px; color: #1d1d1f; margin: 0 0 10px 0; font-weight: 700; }
+        p { font-size: 15px; color: #86868b; margin: 0 0 20px 0; line-height: 1.5; }
 
-        /* iOS 分享按鈕圖示 */
+        /* iOS 分享按鈕的圖示模擬 */
         .share-icon {
             display: inline-block;
             width: 20px;
             height: 20px;
-            vertical-align: sub;
+            vertical-align: middle;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007AFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/%3E%3Cpolyline points='16 6 12 2 8 6'/%3E%3Cline x1='12' y1='2' x2='12' y2='15'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: center;
@@ -87,14 +85,13 @@
             border-radius: 99px;
             font-size: 16px;
             font-weight: 600;
-            margin-top: 5px;
-            display: inline-block;
+            margin-top: 10px;
         }
 
         @keyframes breathe {
-            0% { transform: scale(0.97); opacity: 0.9; }
-            50% { transform: scale(1.03); opacity: 1; }
-            100% { transform: scale(0.97); opacity: 0.9; }
+            0% { transform: scale(0.98); opacity: 0.9; }
+            50% { transform: scale(1.02); opacity: 1; }
+            100% { transform: scale(0.98); opacity: 0.9; }
         }
     </style>
 </head>
@@ -103,14 +100,14 @@
     <img src="icon.png" alt="山熊科學" class="splash-logo">
 
     <div id="install-guide">
-        <img src="icon.png" class="guide-logo">
+        <img src="icon.png" alt="山熊科學" class="logo">
         <h1>加入主畫面</h1>
         <p>請點擊下方的 <span class="share-icon"></span> 分享按鈕<br>並選擇「加入主畫面」<br>即可安裝數位聯絡簿</p>
         <a href="#" id="direct-link" class="btn">直接進入網頁版</a>
     </div>
 
     <script>
-        // ★★★ 你的 Google Apps Script 網址 ★★★
+        // ★★★ 這裡已經填入你的 GAS 網址 ★★★
         const TARGET_URL = "https://script.google.com/macros/s/AKfycbxCfMDh2-Z2PklcsWHEbpTAdapnCIGb7Np09jO7HiaJcIWKmcyu2tlz60krwcvVR-pu/exec";
         
         document.getElementById('direct-link').href = TARGET_URL;
@@ -119,17 +116,13 @@
         const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
         if (isStandalone) {
-            // 情境 A：家長已經從桌布點開 APP
-            // 動作：不顯示教學，直接跳轉
-            document.getElementById('install-guide').style.display = 'none';
-            
-            // 0秒跳轉
+            // APP 模式：隱藏教學，顯示呼吸 Logo，然後瞬間跳轉
+            // 這裡不需做額外動作，因為教學區塊預設是隱藏的，畫面只會剩下一顆 splash-logo
             window.location.replace(TARGET_URL);
         } else {
-            // 情境 B：家長第一次點開連結 (在 Safari 裡)
-            // 動作：隱藏呼吸的大 Logo (選用)，顯示教學卡片
-            // 這裡我讓大 Logo 繼續保留在背景，只浮出教學卡片
-            document.querySelector('.splash-logo').style.display = 'none'; 
+            // 瀏覽器模式：顯示教學區塊
+            // 先隱藏全螢幕的 splash-logo (選用，避免畫面上出現兩顆 Logo)
+            document.querySelector('.splash-logo').style.display = 'none';
             document.getElementById('install-guide').style.display = 'flex';
         }
     </script>
