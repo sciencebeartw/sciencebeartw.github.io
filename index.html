@@ -24,7 +24,7 @@
             overflow: hidden; 
         }
         
-        /* 啟動畫面 Logo (無陰影、透明) */
+        /* 啟動畫面 Logo */
         .splash-logo {
             width: 180px;
             height: auto;
@@ -61,13 +61,13 @@
 
         h1 { font-size: 22px; color: #1d1d1f; margin: 0 0 20px 0; font-weight: 700; }
         
-        /* --- 讓步驟清單區塊置中 --- */
+        /* --- ★★★ 修改重點：更穩定的置中對齊 ★★★ --- */
         .step-list {
-            text-align: left;      /* 內部文字靠左，數字才會對齊 */
-            width: auto;           /* 寬度自動內縮 */
-            display: inline-block; /* 讓它變成區塊，從而可以被父元素置中 */
-            margin-bottom: 25px;
-            max-width: 100%;       /* 防止太寬超出邊界 */
+            text-align: left;
+            width: fit-content; /* 讓寬度貼合內容 */
+            margin: 0 auto 25px auto; /* 確保區塊置中 */
+            display: flex;
+            flex-direction: column;
         }
         
         .step {
@@ -76,38 +76,39 @@
             margin-bottom: 15px;
             line-height: 1.6;
             display: flex;
-            align-items: flex-start; /* 文字若換行，數字球維持在頂端 */
+            align-items: flex-start;
         }
+        /* ------------------------------------------ */
 
         .step-num {
             background: #0071e3;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             text-align: center;
-            line-height: 22px;
-            font-size: 13px;
+            line-height: 24px;
+            font-size: 14px;
             font-weight: bold;
             margin-right: 12px;
             flex-shrink: 0;
-            margin-top: 2px; /* 微調數字球位置 */
+            margin-top: 1px;
         }
 
-        /* LINE 專用的警告區塊 - 已修正置中 */
+        /* LINE 警告區塊 */
         #line-warning {
             display: none;
             background-color: #fff4e5;
             color: #663c00;
-            padding: 12px;
+            padding: 15px;
             border-radius: 12px;
-            font-size: 14px;
-            margin-bottom: 20px;
+            font-size: 15px;
+            margin-bottom: 25px;
             border: 1px solid #ffcc80;
             width: 100%;
             box-sizing: border-box;
-            line-height: 1.5;
-            text-align: center; /* ★★★ 關鍵修正：強制文字置中 ★★★ */
+            line-height: 1.6;
+            text-align: center; /* 強制置中 */
         }
 
         /* 圖示 */
@@ -149,13 +150,13 @@
         <h1>安裝數位聯絡簿</h1>
 
         <div id="line-warning">
-            ⚠️ 偵測到您正在使用 LINE<br>欲安裝數位聯絡簿請依下列步驟<br><strong>「在瀏覽器中開啟」</strong>
+            ⚠️ 偵測到您正在使用 LINE<br>請依下列步驟切換至<br><strong>「Safari 瀏覽器」</strong>
         </div>
 
         <div class="step-list">
             <div class="step" id="step-line" style="display:none;">
                 <div class="step-num">1</div>
-                <div>點選右下角<span style="font-size:18px;">⋮</span> 選單，切換至 Safari/Chrome 瀏覽器開啟</div>
+                <div>點選角落的「分享」或「<span style="font-weight:bold;">⋯</span>」圖示，並選擇 <strong>「使用 Safari 開啟」</strong></div>
             </div>
 
             <div class="step">
@@ -180,7 +181,7 @@
 
         const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
-        // 簡單偵測是否為 LINE 瀏覽器
+        // 偵測是否為 LINE 瀏覽器
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         const isLine = (userAgent.indexOf("Line") > -1);
 
@@ -194,9 +195,11 @@
             document.getElementById('install-guide').style.display = 'flex';
 
             if (isLine) {
-                // LINE 模式：顯示警告和步驟1
+                // LINE 模式：
                 document.getElementById('line-warning').style.display = 'block';
                 document.getElementById('step-line').style.display = 'flex';
+                
+                // 調整後續步驟編號
                 document.getElementById('num-share').innerText = "2";
                 document.getElementById('num-add').innerText = "3";
             }
