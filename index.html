@@ -43,7 +43,7 @@
             align-items: center;
             text-align: center;
             margin-top: 30px;
-            padding: 25px 20px; /* 稍微調整 padding */
+            padding: 25px 20px;
             background: white;
             border-radius: 20px;
             width: 85%;
@@ -61,12 +61,13 @@
 
         h1 { font-size: 22px; color: #1d1d1f; margin: 0 0 20px 0; font-weight: 700; }
         
-        /* --- ★★★ 修改重點：讓步驟清單置中 ★★★ --- */
+        /* --- 讓步驟清單區塊置中 --- */
         .step-list {
-            text-align: left; /* 保持內部文字靠左，數字才會對齊 */
-            width: auto;      /* 讓寬度自動內縮，不再是 100% */
-            display: inline-block; /* 讓它變成區塊 */
+            text-align: left;      /* 內部文字靠左，數字才會對齊 */
+            width: auto;           /* 寬度自動內縮 */
+            display: inline-block; /* 讓它變成區塊，從而可以被父元素置中 */
             margin-bottom: 25px;
+            max-width: 100%;       /* 防止太寬超出邊界 */
         }
         
         .step {
@@ -75,9 +76,8 @@
             margin-bottom: 15px;
             line-height: 1.6;
             display: flex;
-            align-items: center; /* 讓數字球垂直置中對齊文字 */
+            align-items: flex-start; /* 文字若換行，數字球維持在頂端 */
         }
-        /* ------------------------------------------ */
 
         .step-num {
             background: #0071e3;
@@ -91,9 +91,10 @@
             font-weight: bold;
             margin-right: 12px;
             flex-shrink: 0;
+            margin-top: 2px; /* 微調數字球位置 */
         }
 
-        /* LINE 專用的警告區塊 */
+        /* LINE 專用的警告區塊 - 已修正置中 */
         #line-warning {
             display: none;
             background-color: #fff4e5;
@@ -106,6 +107,7 @@
             width: 100%;
             box-sizing: border-box;
             line-height: 1.5;
+            text-align: center; /* ★★★ 關鍵修正：強制文字置中 ★★★ */
         }
 
         /* 圖示 */
